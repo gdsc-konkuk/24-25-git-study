@@ -1,4 +1,4 @@
-> git-book 7.1 ~ 7.6 (11/2/2024)
+> git-book 7.1 ~ 7.7 (11/2/2024)
 
 ## Commit Re-visions
 
@@ -139,3 +139,26 @@ $ git filter-branch --commit-filter '
                 git commit-tree "$@";
         fi' HEAD
 ```
+
+## Reset, Checkout
+
+![image](https://github.com/user-attachments/assets/c14ff663-ce2a-4a7b-8f5f-350c8d5f5395)
+
+### Tree(Pointer?) - `HEAD`, `Index`, `working directory`
+
+- `HEAD` : point current branch's last **commit**
+- `Index` : point **Staging Area**
+- `working dir` : 위의 둘이 `.git` 아래에 압축된 형식으로 관리되는데 반해, **실제 파일**로 관리
+
+### Reset
+
+1. move `HEAD` (`reset --soft`)
+2. move `Index` (`reset --mixed`)
+    - default option
+    - **unstage**
+3. move `workding dir` (`rest --hard`)
+
+### Checkout
+
+- `working dir` 안전 보장
+- `HEAD`가 다른 branch를 가르키도록 변경
