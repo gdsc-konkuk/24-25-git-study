@@ -1,6 +1,4 @@
-다음은 각 Git 기능에 대한 간략한 설명입니다.
-
----
+Tina
 
 # Git Study Notes (Study 02)
 
