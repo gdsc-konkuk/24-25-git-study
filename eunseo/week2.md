@@ -31,14 +31,33 @@
 
   - **Triple Dot**
     Triple Dot은 양쪽에 있는 두 Refs 사이에서 공통으로 가지는 것을 제외하고 서로 다른 커밋만 보여준다.
+## 7.2 interactive staging
+`git add` 명령에 `-i` 나 `--interactive` 옵션을 주고 실행하면 Git은 대화형 모드로 들어간다.
 
-## 7.2 Stashing
+```bash
+$ git add -i
+           staged     unstaged path
+  1:    unchanged        +0/-1 TODO
+  2:    unchanged        +1/-1 index.html
+  3:    unchanged        +5/-1 lib/simplegit.rb
+
+*** Commands ***
+  1: status     2: update      3: revert     4: add untracked
+  5: patch      6: diff        7: quit       8: help
+What now>
+```
+
+왼쪽에는 Staged 상태인 파일들을 보여주고 오른쪽에는 Unstaged 상태인 파일들을 보여준다.
+
+그리고 마지막 “Commands” 부분에서는 할 수 있는 일이 무엇인지 보여준다. 파일들을 Stage하고 Unstage하는 것, Untracked 상태의 파일들을 추가하는 것, Stage한 파일을 Diff할 수 있다. 게다가 수정한 파일의 일부분만 Staging Area에 추가할 수도 있다.
+
+## 7.3 Stashing
 
 `git stash`는 현재 작업 디렉토리에서 수정 중인 파일들을 일시적으로 저장하고, 깨끗한 작업 상태로 되돌아가기 위해 사용됩니다. `stash`는 **Modified** 상태이며 **Tracked** 상태인 파일과 **Staging Area**에 있는 파일들을 보관합니다. 브랜치를 변경해야 할 때 작업 중이던 변경 사항을 스택에 저장해두고 나중에 다시 불러와 적용할 수 있습니다.
 
 ---
 
-### 예시
+#### 예시
 
 1. 파일을 수정하던 중 브랜치를 변경하고 싶은 상황이 발생합니다.
 2. 작업 중인 파일을 커밋하지 않으므로, `stash` 명령어로 임시 저장합니다.
@@ -46,19 +65,6 @@
 3. 이제 자유롭게 다른 브랜치로 이동할 수 있으며, 필요할 때 `git stash apply`를 사용해 stash를 다시 적용할 수 있습니다.
    - `git stash apply stash@{2}`처럼 특정 stash를 골라서 적용할 수도 있습니다. 이름을 지정하지 않으면 가장 최근 stash가 적용됩니다.
 4. 단, `git stash apply`를 사용해도 이전에 **Staged** 상태였던 파일은 자동으로 **Staged** 상태로 복구되지 않습니다. 원래 상태로 돌아가려면 `--index` 옵션을 사용합니다.
-
----
-
-### `git stash save` 옵션
-
-- **`--keep-index`**  
-  이미 Staging Area에 있는 파일을 stash하지 않고 남겨둡니다.
-
-- **`--include-untracked`**, **`-u`**  
-  추적되지 않은 파일(Untracked files)까지 stash에 포함하여 저장합니다.
-
-- **`--patch`**  
-  수정된 모든 내용을 stash에 저장하지 않고, 대화형 프롬프트에서 저장할 변경 사항과 제외할 변경 사항을 선택할 수 있습니다.
 
 ---
 
@@ -76,4 +82,38 @@
   - 특정 stash를 삭제합니다. `stash@{n}`을 지정하지 않으면 가장 최근 stash가 삭제됩니다.
   - 예시: `git stash drop stash@{1}`
 
----
+## 7.5 Searching
+### **Git Grep**
+
+- 커밋 트리의 내용이나 워킹 디렉토리의 내용을 문자열이나 정규표현식을 이용해 쉽게 찾을 수 있다.
+    - 명령을 실행할 때 `-n` 또는 `--line-number` 옵션을 추가하면 찾을 문자열이 위치한 라인 번호도 같이 출력한다.
+    - 어떤 파일에서 몇 개나 찾았는지만 알고 싶다면 `-c` 또는 `--count` 옵션을 이용한다.
+    - 매칭되는 라인이 있는 함수나 메서드를 찾고 싶다면 `-p` 또는 `--show-function` 옵션을 준다.
+    - `--and` 옵션을 이용해서 여러 단어가 한 라인에 동시에 나타나는 줄 찾기 같은 복잡한 조합으로 검색할 수 있다.
+- 매우 빠르다. 또한, 워킹 디렉토리만이 아니라 Git 히스토리 내의 어떠한 정보라도 찾아낼 수 있다.
+
+### **Git log searching**
+
+**`git log`**
+
+어떤 변수가 ***어디에*** 있는지를 찾아보는 게 아니라, 히스토리에서 ***언제*** 추가되거나 변경됐는지 찾아볼 수도 있다.
+
+- **`-S` 옵션**
+    - “pickaxe(곡괭이)” 옵션이라 한다.
+    - 추가된 커밋과 없어진 커밋만 검색할 수 있다.
+    - **`$ git log -S** ZLIB_BUF_MAX **--oneline**`
+- **`-L` 옵션**
+    - 어떤 함수나 한 라인의 히스토리를 볼 수 있다.
+    - 함수의 시작과 끝을 인식해서 함수에서 일어난 모든 히스토리를 함수가 처음 만들어진 때부터 Patch를 나열하여 보여준다.
+
+### bisect
+
+커밋 기록들을 이분탐색하며 어떤 커밋에서 처음으로 버그가 발생했는지 찾을 수 있게 해주는 명령어이다.
+
+1. `$ git bisect start` 
+2. `$ git bisect bad`: 현재 커밋을 문제 있는 커밋으로 표시한다.
+3. `$ git bisect good <커밋 해시>`: 문제가 없는 커밋을 지정한다.
+
+이후 Git은 이진 검색을 통해 중간 커밋들을 체크아웃하면서, 해당 커밋이 문제를 가지고 있는지(`git bisect bad`) 아닌지(`git bisect good`)를 표시하도록 한다. 이렇게 반복하면 문제가 처음 발생한 커밋을 빠르게 찾을 수 있다.
+
+`git bisect reset`을 사용하면 이 과정을 종료하고 원래 브랜치로 돌아간다.
