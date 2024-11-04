@@ -31,3 +31,49 @@
 
   - **Triple Dot**
     Triple Dot은 양쪽에 있는 두 Refs 사이에서 공통으로 가지는 것을 제외하고 서로 다른 커밋만 보여준다.
+
+## 7.2 Stashing
+
+`git stash`는 현재 작업 디렉토리에서 수정 중인 파일들을 일시적으로 저장하고, 깨끗한 작업 상태로 되돌아가기 위해 사용됩니다. `stash`는 **Modified** 상태이며 **Tracked** 상태인 파일과 **Staging Area**에 있는 파일들을 보관합니다. 브랜치를 변경해야 할 때 작업 중이던 변경 사항을 스택에 저장해두고 나중에 다시 불러와 적용할 수 있습니다.
+
+---
+
+### 예시
+
+1. 파일을 수정하던 중 브랜치를 변경하고 싶은 상황이 발생합니다.
+2. 작업 중인 파일을 커밋하지 않으므로, `stash` 명령어로 임시 저장합니다.
+   - `git stash` 또는 `git stash save`를 실행하여 스택에 새로운 stash를 만듭니다.
+3. 이제 자유롭게 다른 브랜치로 이동할 수 있으며, 필요할 때 `git stash apply`를 사용해 stash를 다시 적용할 수 있습니다.
+   - `git stash apply stash@{2}`처럼 특정 stash를 골라서 적용할 수도 있습니다. 이름을 지정하지 않으면 가장 최근 stash가 적용됩니다.
+4. 단, `git stash apply`를 사용해도 이전에 **Staged** 상태였던 파일은 자동으로 **Staged** 상태로 복구되지 않습니다. 원래 상태로 돌아가려면 `--index` 옵션을 사용합니다.
+
+---
+
+### `git stash save` 옵션
+
+- **`--keep-index`**  
+  이미 Staging Area에 있는 파일을 stash하지 않고 남겨둡니다.
+
+- **`--include-untracked`**, **`-u`**  
+  추적되지 않은 파일(Untracked files)까지 stash에 포함하여 저장합니다.
+
+- **`--patch`**  
+  수정된 모든 내용을 stash에 저장하지 않고, 대화형 프롬프트에서 저장할 변경 사항과 제외할 변경 사항을 선택할 수 있습니다.
+
+---
+
+### 주요 `stash` 명령어
+
+- **`git stash push`**
+  - `git stash` 또는 `git stash push` 명령어로 변경 사항을 스택에 쌓고, 현재 작업 디렉토리를 깨끗하게 만듭니다.
+  - `git stash save "메시지"`처럼 메시지를 추가하여 스택을 구분할 수 있습니다.
+
+- **`git stash apply & pop`**
+  - **`git stash apply [stash@{n}]`**: 스택에 저장된 변경 사항을 다시 적용합니다. 인덱스를 지정하지 않으면 최신 stash가 적용됩니다. 스택에 남아 있어 여러 번 적용할 수 있습니다.
+  - **`git stash pop [stash@{n}]`**: `apply`와 유사하지만, 적용 후 해당 stash를 스택에서 제거합니다.
+
+- **`git stash drop [stash@{n}]`**
+  - 특정 stash를 삭제합니다. `stash@{n}`을 지정하지 않으면 가장 최근 stash가 삭제됩니다.
+  - 예시: `git stash drop stash@{1}`
+
+---
