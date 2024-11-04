@@ -202,3 +202,11 @@ What now>
 수정해야 하는 커밋이 너무 많아서 Rebase 스크립트로 수정하기 어려울 것 같으면 사용 가능.
 
 ## 7.7 Reset Demystified
+| Level         | Command                      | HEAD | Index | Workdir | WD Safe? |
+|---------------|------------------------------|------|-------|---------|----------|
+| **Commit Level** | `reset --soft [commit]`       | REF  | NO    | NO      | YES      |
+|               | `reset [commit]`               | REF  | YES   | NO      | YES      |
+|               | `reset --hard [commit]`       | REF  | YES   | YES     | NO       |
+|               | `checkout <commit>`            | HEAD | YES   | YES     | YES      |
+| **File Level**  | `reset [commit] <paths>`       | NO   | YES   | NO      | YES      |
+|               | `checkout [commit] <paths>`   | NO   | YES   | YES     | NO       |
