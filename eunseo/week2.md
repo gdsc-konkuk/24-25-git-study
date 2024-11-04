@@ -31,6 +31,7 @@
 
   - **Triple Dot**
     Triple Dot은 양쪽에 있는 두 Refs 사이에서 공통으로 가지는 것을 제외하고 서로 다른 커밋만 보여준다.
+    
 ## 7.2 interactive staging
 `git add` 명령에 `-i` 나 `--interactive` 옵션을 주고 실행하면 Git은 대화형 모드로 들어간다.
 
@@ -67,9 +68,6 @@ What now>
 4. 단, `git stash apply`를 사용해도 이전에 **Staged** 상태였던 파일은 자동으로 **Staged** 상태로 복구되지 않습니다. 원래 상태로 돌아가려면 `--index` 옵션을 사용합니다.
 
 ---
-
-### 주요 `stash` 명령어
-
 - **`git stash push`**
   - `git stash` 또는 `git stash push` 명령어로 변경 사항을 스택에 쌓고, 현재 작업 디렉토리를 깨끗하게 만듭니다.
   - `git stash save "메시지"`처럼 메시지를 추가하여 스택을 구분할 수 있습니다.
