@@ -1,6 +1,6 @@
 7.8 고급 병합 (Advanced Merging)
 Git에서는 기본 병합 외에도 복잡한 충돌을 해결할 수 있는 고급 병합 옵션을 제공
-예를 들어, `ours`, `theirs`, `recursive`와 같은 병합 전략을 사용해 상황에 맞게 충돌을 해결
+ex) `ours`, `theirs`, `recursive`와 같은 병합 전략을 사용해 상황에 맞게 충돌을 해결
 
 >>> 'theirs' 전략으로 병합하기
 git merge branch_name -s recursive -X theirs
