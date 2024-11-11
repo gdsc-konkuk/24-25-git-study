@@ -4,7 +4,6 @@ ex) `ours`, `theirs`, `recursive`와 같은 병합 전략을 사용해 상황에
 
 >>> 'theirs' 전략으로 병합하기
 git merge branch_name -s recursive -X theirs
-
 - ours: 현재 브랜치의 변경 사항을 우선시, 상대 브랜치의 변경 사항 무시
 - theirs: 상대 브랜치의 변경 사항을 우선시, 현재 브랜치의 변경 사항은 무시
 
