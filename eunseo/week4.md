@@ -21,12 +21,9 @@
 
 - `git hash-object` (Plumbing 명령어): data를 주면 key값(40자 길이의 체크섬 해시)을 알려준다.
   - `-w` 옵션을 주면 data를 저장하고, 없으면 key값만 알려준다.
-- `git cat-file -t`  
-  SHA-1 key를 입력하면 가리키는 해당 개체가 무슨 개체인지 확인할 수 있다.
-  ```
-  $ git cat-file -t 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a
-  blob
-  ```
+- `git cat-file <옵션> <key>`
+  - `-p`: 내용을 볼 수 있다.
+  - `-t`: 해당 개체가 무슨 개체인지 확인할 수 있다.
   
 Git의 개체 모델은 데이터를 관리하기 위해 4가지 기본 개체를 사용한다.
 
