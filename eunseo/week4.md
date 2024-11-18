@@ -92,5 +92,25 @@ $ git gc --auto
   |-----------------------|----------------|---------------------|-------|----------------|
   | `rm file`            | O              | X                   | 느림  | 파일 완전 삭제 |
   | `git rm --cached`    | X              | O                   | 빠름  | Git 추적 해제  |
+
 ## scalar
+```bash
+scalar clone [--single-branch] [--branch <main-branch>] [--full-clone]
+	[--[no-]src] <url> [<enlistment>]
+scalar list
+scalar register [<enlistment>]
+scalar unregister [<enlistment>]
+scalar run ( all | config | commit-graph | fetch | loose-objects | pack-files ) [<enlistment>]
+scalar reconfigure [ --all | <enlistment> ]
+scalar diagnose [<enlistment>]
+scalar delete <enlistment>
+```
+큰 깃 레포지토리를 관리하기 위한 명령어.
+
 ## maintenance
+```bash
+git maintenance run [<options>]
+git maintenance start [--scheduler=<scheduler>]
+git maintenance (stop|register|unregister) [<options>]
+```
+깃 레포지토리를 최적화 하기 위한 명령어
