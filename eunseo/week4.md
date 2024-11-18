@@ -30,6 +30,8 @@ Git의 개체 모델은 데이터를 관리하기 위해 4가지 기본 개체�
 - 블롭(Blob): 파일의 내용만 저장. 이름과 권한은 저장하지 않음.
 - 트리(Tree): 디렉토리 구조를 표현하며, 파일 이름과 권한을 포함.
   ![image](https://github.com/user-attachments/assets/af95ea77-10db-4a91-b65a-d2128e146a7e)
+  - tree: 디렉토리
+  - blob: 각 파일의 내용
 - 커밋(Commit): 스냅샷을 누가, 언제, 왜 저장했는지에 대한 정보를 저장.
   - `git commit-tree <Tree 개체의 SHA-1 값>` 명령어로 만든다.
 - 태그(Tag): 특정 커밋을 가리키는 고정된 참조점.  
@@ -72,7 +74,7 @@ $ git gc --auto
 
 ### 데이터 복구
 - `git reflog` & `git log -g`: 가장 쉬운 방법
-- `$ git fsck --full`: reflog도 삭제한 경우 이용 가능하다.
+- `git fsck --full`: reflog도 삭제한 경우 이용 가능하다.
 
 ### 개체 삭제
 >주의: 이 작업을 하다가 커밋 히스토리를 망쳐버릴 수 있다.
