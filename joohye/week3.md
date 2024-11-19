@@ -96,4 +96,25 @@ $ git rerere // 충돌 ㅂ라생한 코드 자동 해결
 $ git add hello.rb
 $ git rebase --continue
 ```
+### 7.11 [Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
 
+서브모듈: git 저장소 안에 다른 git 저장소를 디렉토리로 분리해 넣는 것
+
+외부 프로젝트를 관리하거나 하위 프로젝트를 가지는 프로젝트에 유용
+
+```powershell
+$ git submodule add <저장소 url> // 하위 디렉토리에 서브모듈 추가
+$ git status 
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+    new file:   .gitmodules // 서브모듈 관리 파일: 이걸 보고 어떤 서브모듈 프로젝트가 있는지 확인 가능
+    new file:   DbConnector
+    
+$ git diff --cached --submodule // 더 자세하게 설명해줌
+$ git commit -am 'added DbConnector module' // 커밋
+$ git push origin master // 끝
+```
